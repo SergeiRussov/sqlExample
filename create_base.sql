@@ -48,7 +48,6 @@ create table goods
 create table orders
 (
  id int not null,
- goods_id int,
  order_date date,
  total_price int,
  status_id int,
@@ -60,13 +59,11 @@ create table orders
 
 create table goods_orders
 (
- goods_id int unique,
- order_id int unique,
- foreign key (goods_id) references goods (id),
+ order_id int,
+ good_id int,
+ foreign key (good_id) references goods (id),
  foreign key (order_id) references orders (id)
 );
-
-alter table orders add constraint goods_ordersfk foreign key (goods_id) references goods_orders (goods_id);
 
 create table histories
 (
@@ -80,8 +77,6 @@ create table customers
 (
  id int not null,
  name varchar,
- phone numeric,
- email varchar,
  contact_id int,
  history_id int,
  role_id int,
